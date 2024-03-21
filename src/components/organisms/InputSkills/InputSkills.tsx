@@ -24,10 +24,12 @@ interface InputSkillsProps {
 const InputSkills: FC<InputSkillsProps> = ({ form, name, label }) => {
   const [isHide, setHide] = useState<boolean>(false);
   const [values, setValues] = useState<string[]>([]);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [enteredText, setEnteredText] = useState<string>('');
+  // const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSaveValue = () => {
-    const value = inputRef.current?.value;
+    // const value = inputRef.current?.value;
+    const value = enteredText;
 
     if (value === '') {
       return;
@@ -38,6 +40,7 @@ const InputSkills: FC<InputSkillsProps> = ({ form, name, label }) => {
     setValues(newValue);
 
     form.setValue(name, newValue);
+    setEnteredText('');
   };
 
   const handleDeleteValue = (item: string) => {
@@ -75,7 +78,12 @@ const InputSkills: FC<InputSkillsProps> = ({ form, name, label }) => {
               </Button>
               {isHide && (
                 <div className="my-4 flex flex-row gap-4">
-                  <Input ref={inputRef} className="w-[246px]" />
+                  <Input
+                    // ref={inputRef}\
+                    value={enteredText}
+                    onChange={(e) => setEnteredText(e.target.value)}
+                    className="w-[246px]"
+                  />
                   <Button type="button" onClick={handleSaveValue}>
                     Save
                   </Button>
