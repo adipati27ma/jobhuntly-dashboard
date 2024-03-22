@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 
 import {
   Table,
@@ -17,7 +17,7 @@ import { MoreVertical } from 'lucide-react';
 type JobListingsProps = {};
 
 const JobListings: FC<JobListingsProps> = (props: JobListingsProps) => {
-  const router = useRouter();
+  // const router = useRouter();
 
   return (
     <div>

@@ -19,6 +19,7 @@ export const JOB_LISTING_COLUMNS: string[] = [
 
 export const JOB_LISTING_DATA = [
   {
+    id: 1,
     roles: 'Software Engineer',
     status: 'Live',
     datePosted: '12 Aug 2023',

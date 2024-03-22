@@ -26,6 +26,8 @@ import CKEditor from '@/components/organisms/CKEditor';
 import InputBenefits from '@/components/organisms/InputBenefits';
 import ButtonActionTable from './organisms/ButtonActionTable/ButtonActionTable';
 import Applicants from './organisms/Applicants/Applicants';
+import JobDetail from './organisms/JobDetail/JobDetail';
+import { Progress } from '@/components/ui/progress';
 
 export {
   Button,
@@ -53,4 +55,6 @@ export {
   InputBenefits,
   ButtonActionTable,
   Applicants,
+  JobDetail,
+  Progress,
 };
