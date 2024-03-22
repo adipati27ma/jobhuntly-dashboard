@@ -2,6 +2,7 @@
 
 import React, { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 
 import { ArrowLeftIcon } from 'lucide-react';
@@ -36,6 +37,7 @@ type PostAJobPageProps = {};
 
 const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
   const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
+  const router = useRouter();
 
   // 1. Define your form.
   const RHForm = useForm<z.infer<typeof jobFormSchema>>({
@@ -59,7 +61,10 @@ const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
   return (
     <div>
       <div className="inline-flex flex-col gap-5">
-        <div className="group inline-flex gap-1 items-end cursor-pointer duration-300 hover:text-primary">
+        <div
+          className="group inline-flex gap-1 items-end cursor-pointer duration-300 hover:text-primary"
+          onClick={() => router.push('/')}
+        >
           <ArrowLeftIcon size={'1.75rem'} className="p-1" />
           <span className="group-hover:underline">Back</span>
         </div>
