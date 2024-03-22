@@ -13,10 +13,13 @@ import {
 import { Button } from '@/components';
 import { BsBuilding } from 'react-icons/bs';
 import { HiOutlineClipboardDocumentList } from 'react-icons/hi2';
+import { useRouter } from 'next/navigation';
 
 type SideBarProps = {};
 
 const SideBar: FC<SideBarProps> = (props: SideBarProps) => {
+  const router = useRouter();
+
   return (
     <div className="pb-12 min-h-screen">
       <div className="space-y-4 py-4">
@@ -25,6 +28,7 @@ const SideBar: FC<SideBarProps> = (props: SideBarProps) => {
           <Button
             variant={'ghost'}
             className="w-full justify-start rounded-none hover:text-primary"
+            onClick={() => router.push('/')}
           >
             <AiOutlineHome className="mr-3.5 text-lg" />
             Home
@@ -53,6 +57,7 @@ const SideBar: FC<SideBarProps> = (props: SideBarProps) => {
           <Button
             variant={'ghost'}
             className="w-full justify-start rounded-none hover:text-primary"
+            onClick={() => router.push('/job-listings')}
           >
             <HiOutlineClipboardDocumentList className="mr-3.5 text-lg" />
             Job Listings
