@@ -28,6 +28,7 @@ import {
   InputSkills,
   CKEditor,
   InputBenefits,
+  Button,
 } from '@/components';
 import { JOBTYPES } from '@/constants';
 
@@ -76,7 +77,7 @@ const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
 
       <Form {...RHForm}>
         <form
-          onSubmit={() => RHForm.handleSubmit(onSubmit)}
+          onSubmit={RHForm.handleSubmit(onSubmit)}
           className="mt-5 space-y-6"
         >
           {/* docs: Job Title */}
@@ -279,6 +280,12 @@ const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
           >
             <InputBenefits form={RHForm} />
           </FieldInput>
+
+          <div className="flex justify-end">
+            <Button size="lg" type="submit">
+              Do a Review
+            </Button>
+          </div>
         </form>
       </Form>
     </div>
