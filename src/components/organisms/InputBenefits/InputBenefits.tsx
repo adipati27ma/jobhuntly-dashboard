@@ -1,3 +1,5 @@
+'use client';
+
 import React, { FC, useState } from 'react';
 import DialogAddBenefit from './DialogAddBenefit';
 import { FormField, FormItem, FormMessage } from '@/components/ui/form';

@@ -1,6 +1,5 @@
-'use client';
-
 import React, { FC } from 'react';
+import { useRouter } from 'next/navigation';
 
 import {
   Table,
@@ -12,12 +11,14 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { JOB_LISTING_COLUMNS, JOB_LISTING_DATA } from '@/constants';
-import { Badge, Button } from '@/components';
+import { Badge, Button, ButtonActionTable } from '@/components';
 import { MoreVertical } from 'lucide-react';
 
 type JobListingsProps = {};
 
 const JobListings: FC<JobListingsProps> = (props: JobListingsProps) => {
+  const router = useRouter();
+
   return (
     <div>
       <div className="font-semibold text-3xl">Job Listing</div>
@@ -49,9 +50,15 @@ const JobListings: FC<JobListingsProps> = (props: JobListingsProps) => {
                   {item.applicants} / {item.needs}
                 </TableCell>
                 <TableCell>
-                  <Button size="icon" variant="outline">
+                  {/* nextJs Ribet anyink harus "use client" setiap file tsx */}
+                  {/* <Button
+                    size="icon"
+                    variant="outline"
+                    onClick={() => router.push('/job-detail/1')}
+                  >
                     <MoreVertical className="w-4 h-4" />
-                  </Button>
+                  </Button> */}
+                  <ButtonActionTable url={`/job-detail/${item.id}`} />
                 </TableCell>
               </TableRow>
             ))}

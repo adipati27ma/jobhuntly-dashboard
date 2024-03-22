@@ -1,3 +1,5 @@
+'use client';
+
 import { FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { FC, useEffect, useRef } from 'react';
 

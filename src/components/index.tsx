@@ -24,6 +24,8 @@ import FieldInput from '@/components/organisms/FieldInput';
 import InputSkills from '@/components/organisms/InputSkills';
 import CKEditor from '@/components/organisms/CKEditor';
 import InputBenefits from '@/components/organisms/InputBenefits';
+import ButtonActionTable from './organisms/ButtonActionTable/ButtonActionTable';
+import Applicants from './organisms/Applicants/Applicants';
 
 export {
   Button,
@@ -49,4 +51,6 @@ export {
   Badge,
   CKEditor,
   InputBenefits,
+  ButtonActionTable,
+  Applicants,
 };
