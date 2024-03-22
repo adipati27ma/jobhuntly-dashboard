@@ -21,7 +21,9 @@ import {
 } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import FieldInput from '@/components/organisms/FieldInput';
-import InputSkills from '@/components/organisms/InputSkills/InputSkills';
+import InputSkills from '@/components/organisms/InputSkills';
+import CKEditor from '@/components/organisms/CKEditor';
+import InputBenefits from '@/components/organisms/InputBenefits';
 
 export {
   Button,
@@ -45,4 +47,6 @@ export {
   SelectValue,
   InputSkills,
   Badge,
+  CKEditor,
+  InputBenefits,
 };

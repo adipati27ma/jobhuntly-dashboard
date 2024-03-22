@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -26,14 +26,18 @@ import {
   SelectTrigger,
   SelectValue,
   InputSkills,
+  CKEditor,
+  InputBenefits,
 } from '@/components';
 import { JOBTYPES } from '@/constants';
 
 type PostAJobPageProps = {};
 
 const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
+  const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
+
   // 1. Define your form.
-  const form = useForm<z.infer<typeof jobFormSchema>>({
+  const RHForm = useForm<z.infer<typeof jobFormSchema>>({
     resolver: zodResolver(jobFormSchema),
     defaultValues: {
       requiredSkills: [],
@@ -46,6 +50,10 @@ const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
     // ✅ This will be type-safe and validated.
     console.log(values);
   }
+
+  useEffect(() => {
+    setEditorLoaded(true);
+  }, []);
 
   return (
     <div>
@@ -66,9 +74,9 @@ const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
 
       <Separator />
 
-      <Form {...form}>
+      <Form {...RHForm}>
         <form
-          onSubmit={() => form.handleSubmit(onSubmit)}
+          onSubmit={() => RHForm.handleSubmit(onSubmit)}
           className="mt-5 space-y-6"
         >
           {/* docs: Job Title */}
@@ -77,7 +85,7 @@ const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
             subtitle="Job titles must be desribe one position"
           >
             <FormField
-              control={form.control}
+              control={RHForm.control}
               name="roles"
               render={({ field }) => (
                 <FormItem>
@@ -101,7 +109,7 @@ const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
             subtitle="You can select multiple type of employment"
           >
             <FormField
-              control={form.control}
+              control={RHForm.control}
               name="jobType"
               render={({ field }) => (
                 <FormItem className="space-y-3">
@@ -137,7 +145,7 @@ const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
           >
             <div className="w-[450px] flex justify-between items-center">
               <FormField
-                control={form.control}
+                control={RHForm.control}
                 name="salaryFrom"
                 render={({ field }) => (
                   <FormItem>
@@ -150,7 +158,7 @@ const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
               />
               <span className="text-center">To</span>
               <FormField
-                control={form.control}
+                control={RHForm.control}
                 name="salaryTo"
                 render={({ field }) => (
                   <FormItem>
@@ -174,7 +182,7 @@ const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
             subtitle="Please specify the category for the role"
           >
             <FormField
-              control={form.control}
+              control={RHForm.control}
               name="categoryId"
               render={({ field }) => (
                 <FormItem>
@@ -209,7 +217,67 @@ const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
             title="Required Skills"
             subtitle="Please specify the required skills for the job"
           >
-            <InputSkills form={form} name="requiredSkills" label="Add Skills" />
+            <InputSkills
+              form={RHForm}
+              name="requiredSkills"
+              label="Add Skills"
+            />
+          </FieldInput>
+
+          {/* docs: Job Description */}
+          <FieldInput
+            title="Job Description"
+            subtitle="Job titles must be describe one position"
+          >
+            <CKEditor
+              form={RHForm}
+              name="jobDescription"
+              editorLoaded={editorLoaded}
+            />
+          </FieldInput>
+
+          {/* docs: Responsibilities */}
+          <FieldInput
+            title="Responsibilities"
+            subtitle="Outline the core responsibilities of the position"
+          >
+            <CKEditor
+              form={RHForm}
+              name="responsibilities"
+              editorLoaded={editorLoaded}
+            />
+          </FieldInput>
+
+          {/* docs: Who You Are */}
+          <FieldInput
+            title="Who You Are"
+            subtitle="Add your preferred candidates qualifications"
+          >
+            <CKEditor
+              form={RHForm}
+              name="whoYouAre"
+              editorLoaded={editorLoaded}
+            />
+          </FieldInput>
+
+          {/* docs: Nice-To-Haves */}
+          <FieldInput
+            title="Nice-To-Haves"
+            subtitle="Add nice-to-have skills and qualifications for the role to encourage a more diverse set of candidates to apply"
+          >
+            <CKEditor
+              form={RHForm}
+              name="niceToHaves"
+              editorLoaded={editorLoaded}
+            />
+          </FieldInput>
+
+          {/* docs: Perks and Benefits */}
+          <FieldInput
+            title="Perks and Benefits"
+            subtitle="Encourage more people to apply by sharing the attractive rewards and benefits you offer your employees"
+          >
+            <InputBenefits form={RHForm} />
           </FieldInput>
         </form>
       </Form>
