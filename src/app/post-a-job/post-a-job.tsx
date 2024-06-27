@@ -36,6 +36,7 @@ import { JOBTYPES } from '@/constants';
 type PostAJobPageProps = {};
 
 const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
+  // CKEditor loaded state after the page rendered
   const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
   const router = useRouter();
 
@@ -63,7 +64,7 @@ const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
       <div className="inline-flex flex-col gap-5">
         <div
           className="group inline-flex gap-1 items-end cursor-pointer duration-300 hover:text-primary"
-          onClick={() => router.push('/')}
+          onClick={() => router.back()}
         >
           <ArrowLeftIcon size={'1.75rem'} className="p-1" />
           <span className="group-hover:underline">Back</span>
@@ -218,7 +219,7 @@ const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
             />
           </FieldInput>
 
-          {/* docs: Category */}
+          {/* docs: Required Skills */}
           <FieldInput
             title="Required Skills"
             subtitle="Please specify the required skills for the job"

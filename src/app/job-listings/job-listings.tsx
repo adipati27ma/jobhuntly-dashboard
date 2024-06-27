@@ -50,7 +50,11 @@ const JobListings: FC<JobListingsProps> = (props: JobListingsProps) => {
                   {item.applicants} / {item.needs}
                 </TableCell>
                 <TableCell>
-                  {/* nextJs Ribet anyink harus "use client" setiap file tsx */}
+                  {/*
+                    nextJs Ribet anyink harus "use client" setiap file tsx
+                    ButtonActionTable dibuat karena useRouter() tidak bisa digunakan pada "use server" alias server component (default)
+                    jadi dipisahkan sebagai client component
+                  */}
                   {/* <Button
                     size="icon"
                     variant="outline"
