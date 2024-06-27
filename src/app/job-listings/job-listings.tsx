@@ -24,7 +24,7 @@ const JobListings: FC<JobListingsProps> = (props: JobListingsProps) => {
       <div className="font-semibold text-3xl">Job Listing</div>
       <div className="mt-10">
         <Table>
-          <TableCaption>A list of your recent invoices WOY.</TableCaption>
+          <TableCaption>A list of your recent jobs.</TableCaption>
           <TableHeader>
             <TableRow>
               {JOB_LISTING_COLUMNS.map((item: string, i: number) => (
