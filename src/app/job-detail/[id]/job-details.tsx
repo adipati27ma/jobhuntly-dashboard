@@ -2,8 +2,14 @@ import React, { FC } from 'react';
 import Link from 'next/link';
 
 import { ArrowLeftIcon } from 'lucide-react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Applicants, JobDetail } from '@/components';
+import {
+  Applicants,
+  JobDetail,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components';
 
 type JobDetailPageProps = {};
 

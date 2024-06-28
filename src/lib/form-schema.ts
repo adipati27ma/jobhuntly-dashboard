@@ -35,3 +35,22 @@ export const jobFormSchema = z.object({
     .array()
     .nonempty({ message: 'You need to add at least one benefit' }),
 });
+
+export const overviewFormSchema = z.object({
+  image: z.any().refine((item: any) => item?.name, {
+    message: 'You need to upload an image',
+  }),
+  name: z.string({ required_error: 'Company name is required' }),
+  website: z.string({ required_error: 'Company website is required' }),
+  location: z.string({ required_error: 'Company location is required' }),
+  numberOfEmployees: z.string({
+    required_error: 'Number of employees is required',
+  }),
+  industry: z.string({ required_error: 'Industry is required' }),
+  foundedDate: z.date({ required_error: 'Founded Date is required' }),
+  techStack: z
+    .string()
+    .array()
+    .nonempty({ message: 'You need to add at least one Tech Stack' }),
+  description: z.string({ required_error: 'Company description is required' }),
+});

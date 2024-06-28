@@ -24,10 +24,21 @@ import FieldInput from '@/components/organisms/FieldInput';
 import InputSkills from '@/components/organisms/InputSkills';
 import CKEditor from '@/components/organisms/CKEditor';
 import InputBenefits from '@/components/organisms/InputBenefits';
-import ButtonActionTable from './organisms/ButtonActionTable/ButtonActionTable';
-import Applicants from './organisms/Applicants/Applicants';
-import JobDetail from './organisms/JobDetail/JobDetail';
+import ButtonActionTable from './organisms/ButtonActionTable';
+import Applicants from '@/components/organisms/Applicants';
+import JobDetail from '@/components/organisms/JobDetail';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
+import OverviewForm from '@/components/forms/OverviewForm';
+import TitleForm from '@/components/atoms/TitleForm';
+import CustomUpload from '@/components/organisms/CustomUpload';
+
+import { Calendar } from '@/components/ui/calendar';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 
 export {
   Button,
@@ -56,5 +67,16 @@ export {
   ButtonActionTable,
   Applicants,
   JobDetail,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
   Progress,
+  OverviewForm,
+  TitleForm,
+  CustomUpload,
+  Calendar,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
 };

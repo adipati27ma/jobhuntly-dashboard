@@ -77,6 +77,7 @@ const SideBar: FC<SideBarProps> = (props: SideBarProps) => {
           <Button
             variant={'ghost'}
             className="w-full justify-start rounded-none hover:text-primary"
+            onClick={() => router.push('/settings')}
           >
             <AiOutlineSetting className="mr-3.5 text-lg" />
             Settings
