@@ -18,7 +18,7 @@ import {
 } from '@/components';
 
 interface InputSkillsProps {
-  form: any;
+  form: any; // because of dynamic type
   name: string;
   label: string;
 }
