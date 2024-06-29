@@ -1,7 +1,10 @@
 import React from 'react';
-import { FieldInput } from '@/components';
-import { BsInstagram } from 'react-icons/bs';
+
 import { InstagramIcon, LinkedinIcon } from 'lucide-react';
+import { BsInstagram } from 'react-icons/bs';
+
+import { FieldInput } from '@/components';
+import DialogAddTeam from './DialogAddTeam';
 
 type Props = {};
 
@@ -15,6 +18,7 @@ const TeamForm = (props: Props) => {
         <div className="w-[65%] mb-10">
           <div className="flex flex-row justify-between items-center">
             <div className="text-lg font-semibold">4 Members</div>
+            <DialogAddTeam />
           </div>
           <div className="grid grid-cols-3 gap-5 mt-6">
             {[0, 1, 2, 3].map((item, i) => (
