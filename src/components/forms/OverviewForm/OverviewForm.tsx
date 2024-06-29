@@ -86,7 +86,7 @@ const OverviewForm: FC<OverviewFormProps> = (props: OverviewFormProps) => {
             title="Company Details"
             subtitle="Introduce your company core info
 												quickly to users by fill up
-												company details"
+												company details."
           >
             <div className="space-y-5">
               {/* docs: Name input */}

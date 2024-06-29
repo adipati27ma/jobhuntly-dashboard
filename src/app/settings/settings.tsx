@@ -5,6 +5,8 @@ import {
   TabsList,
   TabsTrigger,
   OverviewForm,
+  SocialMediaForm,
+  TeamForm,
 } from '@/components';
 
 type SettingsProps = {};
@@ -22,8 +24,12 @@ const settings: FC<SettingsProps> = (props: SettingsProps) => {
         <TabsContent value="overview">
           <OverviewForm />
         </TabsContent>
-        <TabsContent value="socialLinks">Social Links Tab Content</TabsContent>
-        <TabsContent value="teams">Teams Tab Content</TabsContent>
+        <TabsContent value="socialLinks">
+          <SocialMediaForm />
+        </TabsContent>
+        <TabsContent value="teams">
+          <TeamForm />
+        </TabsContent>
       </Tabs>
     </div>
   );

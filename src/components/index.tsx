@@ -34,6 +34,8 @@ import TitleForm from '@/components/atoms/TitleForm';
 import CustomUpload from '@/components/organisms/CustomUpload';
 
 import { Calendar } from '@/components/ui/calendar';
+import SocialMediaForm from './forms/SocialMediaForm';
+import TeamForm from './forms/TeamForm';
 import {
   Popover,
   PopoverContent,
@@ -79,4 +81,6 @@ export {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  SocialMediaForm,
+  TeamForm,
 };
