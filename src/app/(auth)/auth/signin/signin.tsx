@@ -50,10 +50,7 @@ const SignInPage: FC<SignInProps> = (props: SignInProps) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input
-                        placeholder="e.g. john.doe@example.com"
-                        {...field}
-                      />
+                      <Input placeholder="enter your email" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
