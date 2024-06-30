@@ -70,3 +70,10 @@ export const teamFormSchema = z.object({
   instagram: z.string({ required_error: 'Instagram link is required' }),
   linkedin: z.string({ required_error: 'Linkedin link is required' }),
 });
+
+export const signInFormSchema = z.object({
+  email: z
+    .string({ required_error: 'Email is required' })
+    .email({ message: 'Invalid email' }),
+  password: z.string({ required_error: 'Password is required' }),
+});

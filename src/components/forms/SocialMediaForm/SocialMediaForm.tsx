@@ -127,7 +127,9 @@ const SocialMediaForm = (props: Props) => {
             </div>
           </FieldInput>
           <div className="flex justify-end">
-            <Button size="lg">Save Changes</Button>
+            <Button size="lg" className="rounded-none">
+              Save Changes
+            </Button>
           </div>
         </form>
       </Form>

@@ -288,7 +288,7 @@ const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
           </FieldInput>
 
           <div className="flex justify-end">
-            <Button size="lg" type="submit">
+            <Button size="lg" type="submit" className="rounded-none">
               Do a Review
             </Button>
           </div>
