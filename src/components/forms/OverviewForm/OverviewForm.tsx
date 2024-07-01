@@ -161,7 +161,7 @@ const OverviewForm: FC<OverviewFormProps> = (props: OverviewFormProps) => {
               <div className="w-[450px] grid grid-cols-2 gap-4">
                 <FormField
                   control={RHForm.control}
-                  name="numberOfEmployees"
+                  name="workforceSize"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Workforce Size</FormLabel>

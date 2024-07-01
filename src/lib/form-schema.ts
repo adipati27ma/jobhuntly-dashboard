@@ -43,11 +43,11 @@ export const overviewFormSchema = z.object({
   name: z.string({ required_error: 'Company name is required' }),
   website: z.string({ required_error: 'Company website is required' }),
   location: z.string({ required_error: 'Company location is required' }),
-  numberOfEmployees: z.string({
-    required_error: 'Number of employees is required',
+  workforceSize: z.string({
+    required_error: 'Workforce Size is required',
   }),
-  industry: z.string({ required_error: 'Industry is required' }),
-  foundedDate: z.date({ required_error: 'Founded Date is required' }),
+  industry: z.string({ required_error: 'Business sector is required' }),
+  foundedDate: z.date({ required_error: 'Founded date is required' }),
   techStack: z
     .string()
     .array()
