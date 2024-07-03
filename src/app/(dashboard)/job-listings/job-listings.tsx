@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
 // import { useRouter } from 'next/navigation';
+import { getServerSession } from 'next-auth';
+import moment from 'moment';
 
 import {
   Table,
@@ -13,11 +15,32 @@ import {
 import { JOB_LISTING_COLUMNS, JOB_LISTING_DATA } from '@/constants';
 import { Badge, Button, ButtonActionTable } from '@/components';
 import { MoreVertical } from 'lucide-react';
+import prisma from '@/../lib/prisma';
+import { Job } from '@prisma/client';
+import { dateFormat } from '@/lib/utils';
 
 type JobListingsProps = {};
 
-const JobListings: FC<JobListingsProps> = (props: JobListingsProps) => {
+/**
+ * docs: menggunakan Server Side Fetch (server component)
+ * langsung GET data dari server melalui Prisma
+ * function dipisah untuk modularity
+ */
+async function getDataJobs() {
+  const session = await getServerSession();
+
+  const jobs = prisma.job.findMany({
+    where: {
+      companyId: session?.user.id,
+    },
+  });
+
+  return jobs;
+}
+
+const JobListings: FC<JobListingsProps> = async (props: JobListingsProps) => {
   // const router = useRouter();
+  const jobsData = await getDataJobs();
 
   return (
     <div>
@@ -34,14 +57,18 @@ const JobListings: FC<JobListingsProps> = (props: JobListingsProps) => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {JOB_LISTING_DATA.map((item: any, i: number) => (
-              <TableRow key={item + i}>
+            {jobsData.map((item: Job, i: number) => (
+              <TableRow key={item.id + i}>
                 <TableCell>{item.roles}</TableCell>
                 <TableCell>
-                  <Badge>{item.status}</Badge>
+                  {moment(item.datePosted).isBefore(item.dueDate) ? (
+                    <Badge>Live</Badge>
+                  ) : (
+                    <Badge variant={'destructive'}>Expired</Badge>
+                  )}
                 </TableCell>
-                <TableCell>{item.datePosted}</TableCell>
-                <TableCell>{item.dueDate}</TableCell>
+                <TableCell>{dateFormat(item.datePosted)}</TableCell>
+                <TableCell>{dateFormat(item.dueDate)}</TableCell>
                 <TableCell>
                   <Badge variant="outline">{item.jobType}</Badge>
                 </TableCell>
