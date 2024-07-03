@@ -36,6 +36,7 @@ import CustomUpload from '@/components/organisms/CustomUpload';
 import { Calendar } from '@/components/ui/calendar';
 import SocialMediaForm from './forms/SocialMediaForm';
 import TeamForm from './forms/TeamForm';
+import { Toaster } from './ui/toaster';
 import {
   Popover,
   PopoverContent,
@@ -97,4 +98,5 @@ export {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  Toaster,
 };

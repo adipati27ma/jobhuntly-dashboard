@@ -5,6 +5,8 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { signUpFormSchema } from '@/lib/form-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+
 import {
   Button,
   Form,
@@ -15,16 +17,43 @@ import {
   Input,
 } from '@/components';
 import Link from 'next/link';
+import { useToast } from '@/components/ui/use-toast';
 
 type SignUpProps = {};
 
 const SignUpPage: FC<SignUpProps> = (props: SignUpProps) => {
+  const router = useRouter();
+  const { toast } = useToast();
+
   const RHForm = useForm<z.infer<typeof signUpFormSchema>>({
     resolver: zodResolver(signUpFormSchema),
   });
 
-  const onSubmit = (val: z.infer<typeof signUpFormSchema>) => {
-    console.log(val);
+  const onSubmit = async (val: z.infer<typeof signUpFormSchema>) => {
+    console.log('value submit post', val);
+
+    // docs: fetch POST method to create new company-user
+    try {
+      await fetch('/api/company/new-user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(val),
+      });
+
+      await router.push('/auth/signin');
+      toast({
+        title: 'Success',
+        description: 'Your account has been created!',
+      });
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Please try again.' + error,
+      });
+      console.log(error);
+    }
   };
 
   return (
