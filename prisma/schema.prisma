@@ -1,3 +1,5 @@
+// docs: otomatis dipake kalau pake prisma di root folder prisma/schema.prisma,
+// setelah buat prisma client dan run "npx prisma generate" + "npx db push"
 generator client {
   provider = "prisma-client-js"
 }
