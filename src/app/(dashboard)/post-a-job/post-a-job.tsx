@@ -4,10 +4,14 @@ import React, { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { z } from 'zod';
+import useSWR from 'swr';
 
 import { ArrowLeftIcon } from 'lucide-react';
 import { jobFormSchema } from '@/lib/form-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { fetcher } from '@/lib/utils';
+import { CategoryJob } from '@prisma/client';
+
 import {
   FieldInput,
   Separator,
@@ -39,6 +43,11 @@ const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
   // CKEditor loaded state after the page rendered
   const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
   const router = useRouter();
+  let {
+    data: jobCategories,
+    error,
+    isLoading,
+  } = useSWR<CategoryJob[]>('/api/job/categories', fetcher);
 
   // 1. Define your form.
   const RHForm = useForm<z.infer<typeof jobFormSchema>>({
@@ -204,13 +213,11 @@ const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="m@example.com">
-                        m@example.com
-                      </SelectItem>
-                      <SelectItem value="m@google.com">m@google.com</SelectItem>
-                      <SelectItem value="m@support.com">
-                        m@support.com
-                      </SelectItem>
+                      {jobCategories?.map((item: any, i: number) => (
+                        <SelectItem key={item.id} value={item.id}>
+                          {item.name}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
