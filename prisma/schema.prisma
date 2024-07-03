@@ -77,8 +77,8 @@ model Job {
   salaryTo              String
   requiredSkills        String[]
   description           String
-  responsibility        String
-  whoYourAre            String
+  responsibilities        String
+  whoYouAre            String
   niceToHaves           String
   benefits              Json
   categoryId            String?

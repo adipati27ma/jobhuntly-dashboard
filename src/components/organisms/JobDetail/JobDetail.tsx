@@ -42,7 +42,7 @@ const JobDetail: FC<JobDetailProps> = ({}) => {
             <div
               className="text-gray-500 mt-3"
               // dangerouslySetInnerHTML={{
-              //   __html: detail?.responsibility!!,
+              //   __html: detail?.responsibilities!!,
               // }}
             >
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
