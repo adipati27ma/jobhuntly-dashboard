@@ -10,7 +10,7 @@ datasource db {
 model CategoryJob {
   id                    String      @id @default(cuid())
   name                  String
-  Job                   Job[]
+  usedJobs              Job[]
 }
 
 model Industry {
@@ -26,7 +26,7 @@ model Company {
   companySocialMedia    CompanySocialMedia[]
   companyTeam           CompanyTeam[]
   companyOverView       CompanyOverview[]
-  job                   Job[]
+  jobs                  Job[]
 }
 
 model CompanySocialMedia {
@@ -59,7 +59,7 @@ model CompanyOverview {
   workforceSize         String
   industry              String
   foundedDate           DateTime
-  techStack             String[]
+  techStacks            String[]
   description           String
   companyId             String?
   company               Company?    @relation(fields: [companyId], references: [id])
@@ -77,15 +77,15 @@ model Job {
   salaryTo              String
   requiredSkills        String[]
   description           String
-  responsibilities        String
-  whoYouAre            String
+  responsibilities      String
+  whoYouAre             String
   niceToHaves           String
   benefits              Json
   categoryId            String?
   companyId             String?
   categoryJob           CategoryJob? @relation(fields: [categoryId], references: [id])
   company               Company?     @relation(fields: [companyId], references: [id])
-  applicant             Applicant[]
+  applicantsData        Applicant[]
 }
 
 model User {
@@ -93,7 +93,7 @@ model User {
   name                  String
   password              String
   email                 String      @unique
-  applicant             Applicant[]
+  applicantsData        Applicant[]
 }
 
 model Applicant {

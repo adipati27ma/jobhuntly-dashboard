@@ -10,10 +10,45 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import prisma from '@/../lib/prisma';
+import { CategoryJob } from '@prisma/client';
 
-type JobDetailPageProps = {};
+type paramsType = {
+  id: string;
+};
 
-const JobDetailPage: FC<JobDetailPageProps> = (props: JobDetailPageProps) => {
+interface JobDetailPageProps {
+  params: paramsType;
+}
+
+async function getDetailJob(id: string) {
+  const jobDetail = await prisma.job.findFirst({
+    where: {
+      id: id,
+    },
+    include: {
+      applicantsData: {
+        include: {
+          user: true,
+        },
+      },
+      categoryJob: true,
+    },
+  });
+
+  return jobDetail;
+}
+
+const JobDetailPage: FC<JobDetailPageProps> = async ({
+  params,
+}: JobDetailPageProps) => {
+  // const session = await getServerSession(authOptions);
+  const jobDetail = await getDetailJob(params.id);
+
+  console.log('jobDetail', jobDetail);
+
   return (
     <div>
       <div className="inline-flex items-center gap-5 mb-5">
@@ -26,8 +61,11 @@ const JobDetailPage: FC<JobDetailPageProps> = (props: JobDetailPageProps) => {
           </Link>
         </div>
         <div>
-          <div className="text-2xl font-semibold mb-1">Brand Designer</div>
-          <div>Design . Full-Time . 1/10 Hired</div>
+          <div className="text-2xl font-semibold mb-1">{jobDetail?.roles}</div>
+          <div>
+            {jobDetail?.categoryJob?.name} . {jobDetail?.jobType} .{' '}
+            {jobDetail?.applicants}/{jobDetail?.needs} Hired
+          </div>
         </div>
       </div>
 
@@ -37,7 +75,7 @@ const JobDetailPage: FC<JobDetailPageProps> = (props: JobDetailPageProps) => {
           <TabsTrigger value="jobDetails">Job Details</TabsTrigger>
         </TabsList>
         <TabsContent value="applicants">
-          <Applicants />
+          <Applicants applicantsData={jobDetail?.applicantsData} />
         </TabsContent>
         <TabsContent value="jobDetails">
           <JobDetail />

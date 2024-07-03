@@ -33,6 +33,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={epilogue.className}>
         <main className="border-t">
+          {/* <NextAuthProvider session={session}> */}
           <NextAuthProvider>
             <div className="bg-background">
               <div className="flex flex-row">

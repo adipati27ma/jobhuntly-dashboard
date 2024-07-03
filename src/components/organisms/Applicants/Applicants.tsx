@@ -13,14 +13,20 @@ import {
 } from '@/components/ui/table';
 import { JOB_APPLICANT_COLUMNS, JOB_APPLICANT_DATA } from '@/constants';
 import { Badge, ButtonActionTable } from '@/components';
+import { Applicant } from '@prisma/client';
 
-type ApplicantsProps = {};
+type ApplicantsProps = {
+  // applicantsData: Applicant[] | undefined;
+  applicantsData: any;
+};
 
-const Applicants: FC<ApplicantsProps> = (props: ApplicantsProps) => {
+const Applicants: FC<ApplicantsProps> = ({
+  applicantsData,
+}: ApplicantsProps) => {
   return (
     <div>
       <Table>
-        <TableCaption>A list of your recent invoices WOY.</TableCaption>
+        <TableCaption>A list of your recent invoices.</TableCaption>
         <TableHeader>
           <TableRow>
             {JOB_APPLICANT_COLUMNS.map((item: string, i: number) => (
@@ -30,15 +36,24 @@ const Applicants: FC<ApplicantsProps> = (props: ApplicantsProps) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {JOB_APPLICANT_DATA.map((item: any, i: number) => (
-            <TableRow key={item + i}>
-              <TableCell>{item.name}</TableCell>
-              <TableCell>{item.appliedDate}</TableCell>
-              <TableCell>
-                <ButtonActionTable url={`/`} />
-              </TableCell>
-            </TableRow>
-          ))}
+          {applicantsData && (
+            <>
+              {/* {JOB_APPLICANT_DATA.map((item: any, i: number) => ( */}
+              {applicantsData.map((item: any, i: number) => (
+                <TableRow key={item.id + i}>
+                  <TableCell>{item.user.name}</TableCell>
+                  {/**
+                   * docs: appliedDate sementara dihapus, karena di DB tidak ada.
+                   * tbd: tambah appliedDate = date.Now() di schema dkk.
+                   */}
+                  {/* <TableCell>{item.appliedDate}</TableCell> */}
+                  <TableCell>
+                    <ButtonActionTable url={`/`} />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </>
+          )}
         </TableBody>
       </Table>
     </div>

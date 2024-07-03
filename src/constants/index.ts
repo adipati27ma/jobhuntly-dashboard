@@ -35,7 +35,9 @@ export const JOB_LISTING_DATA = [
   },
 ];
 
-export const JOB_APPLICANT_COLUMNS: string[] = ['Name', 'Applied Date'];
+//!docs: om Hariyanto kebingungan karena tidak ada appliedDate di kolom database
+// export const JOB_APPLICANT_COLUMNS: string[] = ['Name', 'Applied Date'];
+export const JOB_APPLICANT_COLUMNS: string[] = ['Name'];
 
 export const JOB_APPLICANT_DATA = [
   {
