@@ -1,4 +1,3 @@
-// import { NextResponse } from 'next/server';
 import prisma from '@/../lib/prisma';
 import { hashPassword } from '@/lib/utils';
 
@@ -14,6 +13,5 @@ export async function POST(request: Request) {
     },
   });
 
-  // return NextResponse.json(result, { status: 201 });
   return Response.json(result, { status: 201 });
 }

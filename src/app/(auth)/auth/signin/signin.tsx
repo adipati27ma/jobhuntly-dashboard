@@ -5,6 +5,11 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { signInFormSchema } from '@/lib/form-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
+import { signIn } from 'next-auth/react';
+import { useToast } from '@/components/ui/use-toast';
+import { useRouter } from 'next/navigation';
+
 import {
   Button,
   Form,
@@ -14,17 +19,34 @@ import {
   FormMessage,
   Input,
 } from '@/components';
-import Link from 'next/link';
 
 type SignInProps = {};
 
 const SignInPage: FC<SignInProps> = (props: SignInProps) => {
+  const { toast } = useToast();
+  const router = useRouter();
+
   const RHForm = useForm<z.infer<typeof signInFormSchema>>({
     resolver: zodResolver(signInFormSchema),
   });
 
-  const onSubmit = (val: z.infer<typeof signInFormSchema>) => {
-    console.log(val);
+  const onSubmit = async (val: z.infer<typeof signInFormSchema>) => {
+    const authenticated = await signIn('credentials', {
+      ...val,
+      redirect: false,
+    });
+    // console.log('authenticated', authenticated);
+
+    if (authenticated?.error) {
+      toast({
+        title: 'Error',
+        description: 'Invalid email or password',
+      });
+
+      return;
+    }
+
+    await router.push('/');
   };
 
   return (
@@ -62,7 +84,11 @@ const SignInPage: FC<SignInProps> = (props: SignInProps) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder="enter your password" {...field} />
+                      <Input
+                        placeholder="enter your password"
+                        type="password"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -72,7 +98,7 @@ const SignInPage: FC<SignInProps> = (props: SignInProps) => {
               <Button className="rounded-none w-full">Sign In</Button>
 
               <div className="text-sm">
-                Don't have an account?{' '}
+                Don&apost have an account?{' '}
                 <Link href="/auth/signup" className="text-primary">
                   Sign Up
                 </Link>

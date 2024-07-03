@@ -34,7 +34,7 @@ const SignUpPage: FC<SignUpProps> = (props: SignUpProps) => {
 
     // docs: fetch POST method to create new company-user
     try {
-      await fetch('/api/company/new-user', {
+      const res = await fetch('/api/company/new-user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ const SignUpPage: FC<SignUpProps> = (props: SignUpProps) => {
         title: 'Error',
         description: 'Please try again.' + error,
       });
-      console.log(error);
+      console.log('error nya adalah', error);
     }
   };
 
