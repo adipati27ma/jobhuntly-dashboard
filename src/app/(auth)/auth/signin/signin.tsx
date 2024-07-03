@@ -31,6 +31,10 @@ const SignInPage: FC<SignInProps> = (props: SignInProps) => {
   });
 
   const onSubmit = async (val: z.infer<typeof signInFormSchema>) => {
+    /**
+     * docs: authentication is done using NextAuth.js
+     * and was initialized in /api/auth/[...nextauth]/route.ts
+     */
     const authenticated = await signIn('credentials', {
       ...val,
       redirect: false,

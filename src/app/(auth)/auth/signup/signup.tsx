@@ -30,9 +30,10 @@ const SignUpPage: FC<SignUpProps> = (props: SignUpProps) => {
   });
 
   const onSubmit = async (val: z.infer<typeof signUpFormSchema>) => {
-    console.log('value submit post', val);
-
-    // docs: fetch POST method to create new company-user
+    /**
+     * docs: fetch POST method to create new company-user
+     * the URL API is made using nextjs built-in API Route + Prisma
+     */
     try {
       const res = await fetch('/api/company/new-user', {
         method: 'POST',
