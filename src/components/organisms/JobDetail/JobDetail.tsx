@@ -1,20 +1,20 @@
 import React, { FC } from 'react';
 import { PartyPopperIcon } from 'lucide-react';
 
-// import { CategoryJob, Job } from "@prisma/client";
-// import { dateFormat } from "@/lib/utils";
+import { CategoryJob, Job } from '@prisma/client';
+import { dateFormat } from '@/lib/utils';
 import { Badge, Progress, Separator } from '@/components';
 
-// type JobDetailType = {
-// 	CategoryJob: CategoryJob | null;
-// } & Job;
+type JobDetailType = {
+  categoryJob: CategoryJob | null;
+} & Job;
 
 interface JobDetailProps {
-  // detail: JobDetailType | null;
+  detail: JobDetailType | null;
 }
 
-const JobDetail: FC<JobDetailProps> = ({}) => {
-  // const benefits: any = detail?.benefits;
+const JobDetail: FC<JobDetailProps> = ({ detail }) => {
+  const benefits: any = detail?.benefits;
 
   return (
     <div>
@@ -24,110 +24,78 @@ const JobDetail: FC<JobDetailProps> = ({}) => {
             <div className="text-3xl font-semibold">Description</div>
             <div
               className="text-gray-500 mt-3"
-              // dangerouslySetInnerHTML={{
-              //   __html: detail?.description!!,
-              // }}
-            >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
-              tempore quibusdam laudantium nisi ullam neque quia tenetur
-              eligendi libero saepe dolores, itaque ab dolorum pariatur
-              possimus. Repellendus itaque deleniti fugiat soluta iusto aut
-              fuga, voluptas dignissimos error officia eveniet molestias sed
-              magni corrupti. Eveniet, accusantium quos. Ullam neque tempore
-              ipsa?
-            </div>
+              dangerouslySetInnerHTML={{
+                __html: detail?.description!,
+              }}
+            ></div>
           </div>
           <div>
             <div className="text-3xl font-semibold">Responsibilities</div>
             <div
               className="text-gray-500 mt-3"
-              // dangerouslySetInnerHTML={{
-              //   __html: detail?.responsibilities!!,
-              // }}
-            >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
-              tempore quibusdam laudantium nisi ullam neque quia tenetur
-              eligendi libero saepe dolores, itaque ab dolorum pariatur
-              possimus. Repellendus itaque deleniti fugiat soluta iusto aut
-              fuga, voluptas dignissimos error officia eveniet molestias sed
-              magni corrupti. Eveniet, accusantium quos. Ullam neque tempore
-              ipsa?
-            </div>
+              dangerouslySetInnerHTML={{
+                __html: detail?.responsibilities!,
+              }}
+            ></div>
           </div>
           <div>
             <div className="text-3xl font-semibold">Who You Are</div>
             <div
               className="text-gray-500 mt-3"
-              // dangerouslySetInnerHTML={{
-              //   __html: detail?.whoYouAre!!,
-              // }}
-            >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
-              tempore quibusdam laudantium nisi ullam neque quia tenetur
-              eligendi libero saepe dolores, itaque ab dolorum pariatur
-              possimus. Repellendus itaque deleniti fugiat soluta iusto aut
-              fuga, voluptas dignissimos error officia eveniet molestias sed
-              magni corrupti. Eveniet, accusantium quos. Ullam neque tempore
-              ipsa?
-            </div>
+              dangerouslySetInnerHTML={{
+                __html: detail?.whoYouAre!,
+              }}
+            ></div>
           </div>
           <div>
             <div className="text-3xl font-semibold">Nice-To-Haves</div>
             <div
               className="text-gray-500 mt-3"
-              // dangerouslySetInnerHTML={{
-              //   __html: detail?.niceToHaves!!,
-              // }}
-            >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
-              tempore quibusdam laudantium nisi ullam neque quia tenetur
-              eligendi libero saepe dolores, itaque ab dolorum pariatur
-              possimus. Repellendus itaque deleniti fugiat soluta iusto aut
-              fuga, voluptas dignissimos error officia eveniet molestias sed
-              magni corrupti. Eveniet, accusantium quos. Ullam neque tempore
-              ipsa?
-            </div>
+              dangerouslySetInnerHTML={{
+                __html: detail?.niceToHaves!,
+              }}
+            ></div>
           </div>
         </div>
         <div>
           <div className="text-3xl font-semibold">About this role</div>
 
           <div className="shadow p-3 text-center my-6">
-            {/* {detail?.applicants}{' '} */}
-            {/* <span className="text-gray-500">of {detail?.needs} capacity</span> */}
-            2 <span className="text-gray-500">of 10 capacity</span>
+            {detail?.applicants}{' '}
+            <span className="text-gray-500">of {detail?.needs} capacity</span>
+            {/* 2 <span className="text-gray-500">of 10 capacity</span> */}
             <Progress
               className="mt-3"
-              // value={(detail?.applicants || 0) / (detail?.needs || 0) / 100}
-              value={20}
+              value={(detail?.applicants || 0) / (detail?.needs || 0) / 100}
+              // value={20}
             />
           </div>
 
           <div className="mb-10 space-y-5">
             <div className="flex justify-between">
               <div className="text-gray-500">Apply Before</div>
-              {/* <div className="font-semibold">{dateFormat(detail?.dueDate)}</div> */}
-              <div className="font-semibold">12 Aug 2023</div>
+              <div className="font-semibold">{dateFormat(detail?.dueDate)}</div>
+              {/* <div className="font-semibold">12 Aug 2023</div> */}
             </div>
             <div className="flex justify-between">
               <div className="text-gray-500">Job Posted On</div>
               <div className="font-semibold">
-                {/* {dateFormat(detail?.datePosted)} */}
-                12 Sep 2023
+                {dateFormat(detail?.datePosted)}
+                {/* 12 Sep 2023 */}
               </div>
             </div>
             <div className="flex justify-between">
               <div className="text-gray-500">Job Type</div>
               <div className="font-semibold">
-                {/* {detail?.jobType} */}
-                Full-Time
+                {detail?.jobType}
+                {/* Full-Time */}
               </div>
             </div>
             <div className="flex justify-between">
               <div className="text-gray-500">Salary</div>
               <div className="font-semibold">
-                {/* ${detail?.salaryFrom} - ${detail?.salaryTo} USD */}
-                $100-2k USD
+                ${detail?.salaryFrom} - ${detail?.salaryTo} USD
+                {/* $100-2k USD */}
               </div>
             </div>
           </div>
@@ -138,8 +106,8 @@ const JobDetail: FC<JobDetailProps> = ({}) => {
             <div className="text-3xl font-semibold mb-4">Category</div>
 
             <div className="space-x-5">
-              {/* <Badge>{detail?.CategoryJob?.name}</Badge> */}
-              <Badge>Design</Badge>
+              <Badge>{detail?.categoryJob?.name}</Badge>
+              {/* <Badge>Design</Badge> */}
             </div>
           </div>
 
@@ -149,13 +117,13 @@ const JobDetail: FC<JobDetailProps> = ({}) => {
             <div className="text-3xl font-semibold mb-4">Required Skills</div>
 
             <div className="space-x-5">
-              {/* {detail?.requiredSkills.map((item: string, i: number) => (
+              {detail?.requiredSkills.map((item: string, i: number) => (
                 <Badge variant="outline" key={i}>
                   {item}
                 </Badge>
-              ))} */}
-              <Badge variant="outline">HTML</Badge>
-              <Badge variant="outline">JavaScript</Badge>
+              ))}
+              {/* <Badge variant="outline">HTML</Badge> */}
+              {/* <Badge variant="outline">JavaScript</Badge> */}
             </div>
           </div>
         </div>
@@ -168,16 +136,16 @@ const JobDetail: FC<JobDetailProps> = ({}) => {
         </div>
 
         <div className="grid grid-cols-4 gap-5 mt-9">
-          {/* {benefits?.map((item: any) => (
+          {benefits?.map((item: any) => (
             <div key={item}>
               <PartyPopperIcon className="w-10 h-10 text-primary mb-6" />
 
               <div className="text-lg font-semibold mb-3">{item.benefit}</div>
               <div className="text-gray-500">{item.description}</div>
             </div>
-          ))} */}
+          ))}
 
-          <div>
+          {/* <div>
             <PartyPopperIcon className="w-10 h-10 text-primary mb-6" />
 
             <div className="text-lg font-semibold mb-3">Benefit 1</div>
@@ -200,7 +168,7 @@ const JobDetail: FC<JobDetailProps> = ({}) => {
             <div className="text-gray-500">
               This is description of benefit 3.
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
