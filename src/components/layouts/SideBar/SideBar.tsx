@@ -1,6 +1,9 @@
 'use client';
 
 import React, { FC } from 'react';
+import { useRouter } from 'next/navigation';
+import { signOut } from 'next-auth/react';
+
 import {
   AiOutlineCalendar,
   AiOutlineHome,
@@ -13,7 +16,6 @@ import {
 import { Button } from '@/components';
 import { BsBuilding } from 'react-icons/bs';
 import { HiOutlineClipboardDocumentList } from 'react-icons/hi2';
-import { useRouter } from 'next/navigation';
 
 type SideBarProps = {};
 
@@ -85,6 +87,7 @@ const SideBar: FC<SideBarProps> = (props: SideBarProps) => {
           <Button
             variant={'ghost'}
             className="w-full justify-start rounded-none text-red-500 hover:text-red-500 hover:bg-red-100"
+            onClick={() => signOut()}
           >
             <AiOutlineLogout className="mr-3.5 text-lg" />
             Logout

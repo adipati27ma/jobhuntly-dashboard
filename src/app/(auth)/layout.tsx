@@ -12,6 +12,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  /**
+   * docs: digunakan "getServerSession()" krn mrupakan server component
+   */
   const session = await getServerSession(authOptions);
 
   if (session !== null) {
