@@ -47,8 +47,6 @@ const JobDetailPage: FC<JobDetailPageProps> = async ({
   // const session = await getServerSession(authOptions);
   const jobDetail = await getDetailJob(params.id);
 
-  console.log('jobDetail', jobDetail);
-
   return (
     <div>
       <div className="inline-flex items-center gap-5 mb-5">

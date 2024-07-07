@@ -48,7 +48,7 @@ export const overviewFormSchema = z.object({
   }),
   industry: z.string({ required_error: 'Business sector is required' }),
   foundedDate: z.date({ required_error: 'Founded date is required' }),
-  techStack: z
+  techStacks: z
     .string()
     .array()
     .nonempty({ message: 'You need to add at least one Tech Stack' }),

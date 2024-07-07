@@ -3,6 +3,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import useSWR from 'swr';
 
 import { overviewFormSchema } from '@/lib/form-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -13,7 +14,7 @@ import {
   optionType,
 } from '@/constants';
 import { CalendarIcon } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn, fetcher } from '@/lib/utils';
 import { format } from 'date-fns';
 
 import {
@@ -42,14 +43,33 @@ import {
   Separator,
   TitleForm,
 } from '@/components';
+import { CompanyOverview, Industry } from '@prisma/client';
 
-type OverviewFormProps = {};
+type OverviewFormProps = {
+  details: CompanyOverview | undefined;
+};
 
-const OverviewForm: FC<OverviewFormProps> = (props: OverviewFormProps) => {
+const OverviewForm: FC<OverviewFormProps> = ({ details }) => {
   const [editorLoaded, seteditorLoaded] = useState<boolean>(false);
+
+  const { data: industries } = useSWR<Industry[]>(
+    '/api/company/industry',
+    fetcher
+  );
 
   const RHForm = useForm<z.infer<typeof overviewFormSchema>>({
     resolver: zodResolver(overviewFormSchema),
+    defaultValues: {
+      name: details?.name,
+      website: details?.website,
+      location: details?.location,
+      workforceSize: details?.workforceSize,
+      industry: details?.industry,
+      foundedDate: details?.foundedDate,
+      techStacks: details?.techStacks || [],
+      description: details?.description,
+      image: details?.image,
+    },
   });
 
   const onSubmit = (val: z.infer<typeof overviewFormSchema>) => {
@@ -204,13 +224,14 @@ const OverviewForm: FC<OverviewFormProps> = (props: OverviewFormProps) => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {INDUSTRY_OPTIONS.map(
-                            (item: optionType, i: number) => (
-                              <SelectItem key={item.id + i} value={item.id}>
-                                {item.label}
+                          {/* {INDUSTRY_OPTIONS.map( */}
+                          {industries
+                            ?.sort((a, b) => a.name.localeCompare(b.name))
+                            .map((item: Industry) => (
+                              <SelectItem key={item.id} value={item.id}>
+                                {item.name}
                               </SelectItem>
-                            )
-                          )}
+                            ))}
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -266,7 +287,7 @@ const OverviewForm: FC<OverviewFormProps> = (props: OverviewFormProps) => {
               {/* docs: Skills input */}
               <InputSkills
                 form={RHForm}
-                name="techStack"
+                name="techStacks"
                 label="Add Tech Stack"
               />
             </div>
