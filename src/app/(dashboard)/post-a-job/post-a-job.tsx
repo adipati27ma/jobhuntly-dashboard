@@ -98,8 +98,9 @@ const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
         body: JSON.stringify(body),
       });
 
+      //! tbd: better using useEffect() on job-listings
       router.replace('/job-listings');
-      router.refresh();
+      router.refresh(); // this just temporary solution, need refresh to refresh data.
     } catch (error) {
       toast({
         title: 'Error',

@@ -40,10 +40,11 @@ async function getDataJobs() {
   return jobs;
 }
 
+//! tbd: better use useEffect() for fetching data
 const JobListings: FC<JobListingsProps> = async (props: JobListingsProps) => {
   // const router = useRouter();
+
   const jobsData = await getDataJobs();
-  console.log('jobsData', jobsData);
 
   return (
     <div>
