@@ -18,6 +18,7 @@ import { MoreVertical } from 'lucide-react';
 import prisma from '@/../lib/prisma';
 import { Job } from '@prisma/client';
 import { dateFormat } from '@/lib/utils';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 type JobListingsProps = {};
 
@@ -27,7 +28,7 @@ type JobListingsProps = {};
  * function dipisah untuk modularity
  */
 async function getDataJobs() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   const jobs = prisma.job.findMany({
     where: {
@@ -35,12 +36,14 @@ async function getDataJobs() {
     },
   });
 
+  console.log('getDataJobs!!! user ID', session?.user.id);
   return jobs;
 }
 
 const JobListings: FC<JobListingsProps> = async (props: JobListingsProps) => {
   // const router = useRouter();
   const jobsData = await getDataJobs();
+  console.log('jobsData', jobsData);
 
   return (
     <div>

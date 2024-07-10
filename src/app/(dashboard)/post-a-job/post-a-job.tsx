@@ -98,11 +98,13 @@ const PostAJobPage: FC<PostAJobPageProps> = (props: PostAJobPageProps) => {
         body: JSON.stringify(body),
       });
 
-      await router.push('/job-listings');
+      router.replace('/job-listings');
+      router.refresh();
     } catch (error) {
       toast({
         title: 'Error',
         description: 'Please try again.' + error,
+        variant: 'destructive',
       });
       console.log(error);
     }

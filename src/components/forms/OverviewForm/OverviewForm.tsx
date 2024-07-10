@@ -44,18 +44,27 @@ import {
   TitleForm,
 } from '@/components';
 import { CompanyOverview, Industry } from '@prisma/client';
+import { supabaseUploadFile } from '@/lib/supabase';
+import { useSession } from 'next-auth/react';
+import { useToast } from '@/components/ui/use-toast';
+import { useRouter } from 'next/navigation';
 
 type OverviewFormProps = {
   details: CompanyOverview | undefined;
 };
 
 const OverviewForm: FC<OverviewFormProps> = ({ details }) => {
-  const [editorLoaded, seteditorLoaded] = useState<boolean>(false);
+  const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
+  const { data: session } = useSession();
+  const { toast } = useToast();
+  const router = useRouter();
 
   const { data: industries } = useSWR<Industry[]>(
     '/api/company/industry',
     fetcher
   );
+
+  console.log('session', session);
 
   const RHForm = useForm<z.infer<typeof overviewFormSchema>>({
     resolver: zodResolver(overviewFormSchema),
@@ -72,12 +81,55 @@ const OverviewForm: FC<OverviewFormProps> = ({ details }) => {
     },
   });
 
-  const onSubmit = (val: z.infer<typeof overviewFormSchema>) => {
-    console.log(val);
+  const onSubmit = async (val: z.infer<typeof overviewFormSchema>) => {
+    try {
+      let filename = '';
+
+      // docs: Check if image is an object (new file) or string (old file)
+      if (typeof val.image === 'object') {
+        // Upload image to supabase storage
+        const uploadImg = await supabaseUploadFile(val.image, 'company');
+        filename = uploadImg.filename;
+      } else {
+        filename = val.image;
+      }
+
+      const body = {
+        ...val,
+        image: filename,
+        companyId: session?.user.id,
+      };
+
+      console.log('body', body);
+
+      return;
+
+      await fetch('/api/company/overview', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      });
+
+      await toast({
+        title: 'Company information updated',
+        description: 'Your company information has been updated successfully.',
+      });
+
+      router.refresh();
+    } catch (error) {
+      await toast({
+        title: 'Failed to update company information',
+        description: 'An error occurred while updating company information.',
+        variant: 'destructive',
+      });
+      console.error('trycatch error', error);
+    }
   };
 
   useEffect(() => {
-    seteditorLoaded(true);
+    setEditorLoaded(true);
   }, []);
 
   return (

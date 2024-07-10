@@ -52,6 +52,7 @@ const SignUpPage: FC<SignUpProps> = (props: SignUpProps) => {
       toast({
         title: 'Error',
         description: 'Please try again.' + error,
+        variant: 'destructive',
       });
       console.log('error nya adalah', error);
     }

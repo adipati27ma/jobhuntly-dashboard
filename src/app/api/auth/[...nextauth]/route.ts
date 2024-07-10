@@ -6,11 +6,18 @@ import { comparePassword } from '@/lib/utils';
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
+    /**
+     * docs: yg ada disini adalah bentuk obj yg akan di return
+     * di useSession() pada client side
+     */
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
         email: { label: 'email', type: 'email' },
         password: { label: 'password', type: 'password' },
+        id: {
+          type: 'text',
+        },
       },
       async authorize(credentials, req) {
         const user = await prisma.company.findFirst({
@@ -25,7 +32,7 @@ export const authOptions: NextAuthOptions = {
 
         const isMatch = await comparePassword(
           credentials?.password!,
-          user.password
+          user?.password!
         );
 
         if (!isMatch) {
@@ -39,12 +46,13 @@ export const authOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: '/auth/signin',
+    signOut: '/auth/signout',
     newUser: '/auth/signup',
   },
   callbacks: {
     jwt({ token, account, user }) {
       if (account) {
-        token.id = account.id;
+        token.id = user?.id;
       }
 
       return token;
