@@ -1,7 +1,6 @@
 'use client';
 
 import { supabaseGetPublicUrl } from '@/lib/supabase';
-// import { supabaseGetPublicURL } from '@/lib/supabase';
 import Image from 'next/image';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 

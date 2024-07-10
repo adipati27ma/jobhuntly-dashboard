@@ -64,8 +64,6 @@ const OverviewForm: FC<OverviewFormProps> = ({ details }) => {
     fetcher
   );
 
-  console.log('session', session);
-
   const RHForm = useForm<z.infer<typeof overviewFormSchema>>({
     resolver: zodResolver(overviewFormSchema),
     defaultValues: {
@@ -84,6 +82,7 @@ const OverviewForm: FC<OverviewFormProps> = ({ details }) => {
   const onSubmit = async (val: z.infer<typeof overviewFormSchema>) => {
     try {
       let filename = '';
+      console.log('val.imagee', val.image);
 
       // docs: Check if image is an object (new file) or string (old file)
       if (typeof val.image === 'object') {
@@ -102,8 +101,6 @@ const OverviewForm: FC<OverviewFormProps> = ({ details }) => {
 
       console.log('body', body);
 
-      return;
-
       await fetch('/api/company/overview', {
         method: 'POST',
         headers: {
@@ -112,10 +109,11 @@ const OverviewForm: FC<OverviewFormProps> = ({ details }) => {
         body: JSON.stringify(body),
       });
 
-      await toast({
+      toast({
         title: 'Company information updated',
         description: 'Your company information has been updated successfully.',
       });
+      console.log('bodyiiii');
 
       router.refresh();
     } catch (error) {

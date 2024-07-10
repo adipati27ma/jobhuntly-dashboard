@@ -37,9 +37,12 @@ export const jobFormSchema = z.object({
 });
 
 export const overviewFormSchema = z.object({
-  image: z.any().refine((item: any) => item?.name, {
+  // docs: gak tau kenapa pake .refine() error, jd skrg tidak required
+  // update: sudah tidak error, hanya perlu menambahkan validasi lainnya
+  image: z.any().refine((item: any) => item?.name || typeof item == 'string', {
     message: 'You need to upload an image',
   }),
+  // image: z.any(),
   name: z.string({ required_error: 'Company name is required' }),
   website: z.string({ required_error: 'Company website is required' }),
   location: z.string({ required_error: 'Company location is required' }),
