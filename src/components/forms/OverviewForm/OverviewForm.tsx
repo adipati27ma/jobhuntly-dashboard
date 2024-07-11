@@ -82,7 +82,6 @@ const OverviewForm: FC<OverviewFormProps> = ({ details }) => {
   const onSubmit = async (val: z.infer<typeof overviewFormSchema>) => {
     try {
       let filename = '';
-      console.log('val.imagee', val.image);
 
       // docs: Check if image is an object (new file) or string (old file)
       if (typeof val.image === 'object') {
@@ -99,8 +98,6 @@ const OverviewForm: FC<OverviewFormProps> = ({ details }) => {
         companyId: session?.user.id,
       };
 
-      console.log('body', body);
-
       await fetch('/api/company/overview', {
         method: 'POST',
         headers: {
@@ -113,8 +110,8 @@ const OverviewForm: FC<OverviewFormProps> = ({ details }) => {
         title: 'Company information updated',
         description: 'Your company information has been updated successfully.',
       });
-      console.log('bodyiiii');
 
+      //!tbd: seharusnya pake useState() ajaa instead of router.refresh()
       router.refresh();
     } catch (error) {
       await toast({

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -18,16 +18,62 @@ import {
   FormMessage,
   Input,
 } from '@/components';
+import { useSession } from 'next-auth/react';
+import { useToast } from '@/components/ui/use-toast';
+import { useRouter } from 'next/navigation';
+import { CompanySocialMedia } from '@prisma/client';
 
-type Props = {};
+type SocialMediaFormProps = {
+  details: CompanySocialMedia | undefined;
+};
 
-const SocialMediaForm = (props: Props) => {
+const SocialMediaForm: FC<SocialMediaFormProps> = ({
+  details,
+}: SocialMediaFormProps) => {
+  const { data: session } = useSession();
+  const { toast } = useToast();
+  const router = useRouter();
+
   const RHForm = useForm<z.infer<typeof socialMediaFormSchema>>({
     resolver: zodResolver(socialMediaFormSchema),
+    defaultValues: {
+      facebook: details?.facebook || '',
+      instagram: details?.instagram || '',
+      linkedin: details?.linkedin || '',
+      twitter: details?.twitter || '',
+      youtube: details?.youtube || '',
+    },
   });
 
-  const onSubmit = (val: z.infer<typeof socialMediaFormSchema>) => {
-    console.log(val);
+  const onSubmit = async (val: z.infer<typeof socialMediaFormSchema>) => {
+    try {
+      const body = {
+        ...val,
+        companyId: session?.user.id,
+      };
+
+      await fetch('/api/company/social-media', {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      //!tbd: seharusnya pake useState() ajaa instead of router.refresh()
+      // berasa gak ngaruh, gak kerasa refresh
+      await router.refresh();
+      toast({
+        title: 'Success',
+        description: 'Social media links updated successfully.',
+      });
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Failed to update social media links.',
+      });
+      console.log('error SocMedLinks', error);
+    }
   };
 
   return (

@@ -23,6 +23,7 @@ async function getDetailCompany() {
     },
     include: {
       companyOverView: true,
+      companySocialMedia: true,
     },
   });
 
@@ -47,7 +48,7 @@ const settings: FC<SettingsProps> = async (props: SettingsProps) => {
           <OverviewForm details={companyDetails?.companyOverView[0]} />
         </TabsContent>
         <TabsContent value="socialLinks">
-          <SocialMediaForm />
+          <SocialMediaForm details={companyDetails?.companySocialMedia[0]} />
         </TabsContent>
         <TabsContent value="teams">
           <TeamForm />
