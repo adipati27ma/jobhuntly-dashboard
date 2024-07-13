@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { teamFormSchema } from '@/lib/form-schema';
@@ -24,21 +24,56 @@ import {
   Input,
 } from '@/components';
 import { PlusIcon } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import { useToast } from '@/components/ui/use-toast';
+import { useRouter } from 'next/navigation';
 
 type DialogAddTeamProps = {};
 
 const DialogAddTeam: FC<DialogAddTeamProps> = (props: DialogAddTeamProps) => {
+  const [open, setOpen] = useState(false);
+  const { data: session } = useSession();
+  const { toast } = useToast();
+  const router = useRouter();
+
   const RHForm = useForm<z.infer<typeof teamFormSchema>>({
     resolver: zodResolver(teamFormSchema),
   });
 
-  const onSubmit = (val: z.infer<typeof teamFormSchema>) => {
-    console.log(val);
+  const onSubmit = async (val: z.infer<typeof teamFormSchema>) => {
+    try {
+      const body = {
+        ...val,
+        companyId: session?.user.id,
+      };
+
+      await fetch('/api/company/teams', {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      toast({
+        title: 'Team member added',
+        description: 'Team member has been added successfully.',
+      });
+      setOpen(false);
+      await router.refresh();
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'An error occurred while adding team member.',
+        variant: 'destructive',
+      });
+      console.log('Team Member Add eror', error);
+    }
   };
 
   return (
     <>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button className="rounded-none">
             <PlusIcon className="h-4 w-4 mr-2" />
