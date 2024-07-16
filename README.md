@@ -35,5 +35,5 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-## Tag Status
+## Release Status
 MVP has been fulfilled, software dashboard is ready to use. (landing page/core website still under development, repo: [jobhuntly-nextprism](https://github.com/adipati27ma/jobhuntly-nextprism)) 
