@@ -37,3 +37,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Release Status
 MVP has been fulfilled, software dashboard is ready to use. (landing page/core website still under development, repo: [jobhuntly-nextprism](https://github.com/adipati27ma/jobhuntly-nextprism)) 
+
+## Database
+Using Postgre SQL with PrismaORM.
