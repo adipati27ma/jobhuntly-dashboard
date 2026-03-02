@@ -39,7 +39,6 @@ const SignInPage: FC<SignInProps> = (props: SignInProps) => {
       ...val,
       redirect: false,
     });
-    // console.log('authenticated', authenticated);
 
     if (authenticated?.error) {
       toast({

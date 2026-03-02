@@ -61,7 +61,7 @@ const OverviewForm: FC<OverviewFormProps> = ({ details }) => {
 
   const { data: industries } = useSWR<Industry[]>(
     '/api/company/industry',
-    fetcher
+    fetcher,
   );
 
   const RHForm = useForm<z.infer<typeof overviewFormSchema>>({
@@ -170,7 +170,6 @@ const OverviewForm: FC<OverviewFormProps> = ({ details }) => {
                         {...field}
                       />
                     </FormControl>
-                    {/* <FormDescription>At least 10 characters</FormDescription> */}
                     <FormMessage />
                   </FormItem>
                 )}
@@ -190,6 +189,7 @@ const OverviewForm: FC<OverviewFormProps> = ({ details }) => {
                         {...field}
                       />
                     </FormControl>
+                    <FormDescription>Enter a valid website</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -241,13 +241,13 @@ const OverviewForm: FC<OverviewFormProps> = ({ details }) => {
                             <SelectValue placeholder="Select Size" />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent>
+                        <SelectContent position="item-aligned">
                           {NUMBER_OF_EMPLOYEES_OPTIONS.map(
                             (item: optionType, i: number) => (
                               <SelectItem key={item.id + i} value={item.id}>
                                 {item.label}
                               </SelectItem>
-                            )
+                            ),
                           )}
                         </SelectContent>
                       </Select>
@@ -270,7 +270,7 @@ const OverviewForm: FC<OverviewFormProps> = ({ details }) => {
                             <SelectValue placeholder="Select Business Sector" />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent>
+                        <SelectContent position="item-aligned">
                           {/* {INDUSTRY_OPTIONS.map( */}
                           {industries
                             ?.sort((a, b) => a.name.localeCompare(b.name))
@@ -301,7 +301,7 @@ const OverviewForm: FC<OverviewFormProps> = ({ details }) => {
                             variant={'outline'}
                             className={cn(
                               'w-[450px] pl-3 text-left font-normal',
-                              !field.value && 'text-muted-foreground'
+                              !field.value && 'text-muted-foreground',
                             )}
                           >
                             {field.value ? (

@@ -29,15 +29,16 @@ export default function CustomUpload({ form, name }: CustomUploadProps) {
     async function getImage() {
       const { publicUrl } = await supabaseGetPublicUrl(
         form.getValues(name),
-        'company'
+        'company',
       );
       setPreviewImg(publicUrl);
     }
 
-    if (form.getValues(name) !== '') {
+    // if empty will undefined, or empty string
+    if (form.getValues(name)) {
       getImage();
     }
-  }, []);
+  }, [form, name]);
 
   return (
     <div className="inline-flex items-center gap-8">

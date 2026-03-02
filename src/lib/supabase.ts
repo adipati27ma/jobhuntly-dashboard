@@ -3,7 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 // Create a single supabase client for interacting with your database
 export const supabaseClient = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLIC_KEY!
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLIC_KEY!,
 );
 
 // docs: utils for generate a new random filename
@@ -24,7 +24,7 @@ const createId = (length: number) => {
 // docs: Upload file to supabase storage
 export const supabaseUploadFile = async (
   file: File | string,
-  bucket: 'company' | 'applicant'
+  bucket: 'company' | 'applicant',
 ) => {
   const filename = `${createId(6)}.jpg`;
 
@@ -45,7 +45,7 @@ export const supabaseUploadFile = async (
 // docs: Get public url of a file from supabase storage
 export const supabaseGetPublicUrl = (
   filename: string,
-  bucket: 'company' | 'applicant'
+  bucket: 'company' | 'applicant',
 ) => {
   const { data } = supabaseClient.storage
     .from(bucket)
@@ -59,7 +59,7 @@ export const supabaseGetPublicUrl = (
 // docs: Delete a file from supabase storage
 export const supabaseDeleteFile = async (
   filename: string,
-  bucket: 'company' | 'applicant'
+  bucket: 'company' | 'applicant',
 ) => {
   const { data, error } = await supabaseClient.storage
     .from(bucket)
@@ -75,7 +75,7 @@ export const supabaseDeleteFile = async (
 export const supabaseUpdateFile = async (
   file: File | string,
   filename: string,
-  bucket: 'company' | 'applicant'
+  bucket: 'company' | 'applicant',
 ) => {
   const { data, error } = await supabaseClient.storage
     .from(bucket)

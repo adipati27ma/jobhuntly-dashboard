@@ -34,8 +34,6 @@ async function getDetailCompany() {
 const settings: FC<SettingsProps> = async (props: SettingsProps) => {
   const companyDetails = await getDetailCompany();
 
-  console.log('company details!!', companyDetails);
-
   return (
     <div>
       <div className="font-semibold text-3xl mb-5">Settings</div>
